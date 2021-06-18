@@ -1,3 +1,4 @@
+import datetime
 from django.db.models import fields
 from django.forms.forms import Form
 from django.shortcuts import render
@@ -64,7 +65,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
-    fields = ['task', 'description', 'complete']
+    fields = ['task', 'description', 'due_date', 'complete']
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
@@ -74,7 +75,8 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ['task', 'description', 'complete']
+    fields = ['task', 'description', 'due_date', 'complete']
+
     success_url = reverse_lazy('tasks')
 
 
