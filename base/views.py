@@ -134,3 +134,13 @@ def SearchClosedTasks(request):
         'form': form
     }
     return render(request, 'base/closed_within_dates.html', context)
+
+
+def tasks_due_tomorrow(request):
+    tasks = Task.objects.all()
+    tomorrow = datetime.datetime.today().date() + datetime.timedelta(days=1)
+    tasks_due = [task for task in tasks if task.due_date == tomorrow]
+    context = {
+        'tasks_due': tasks_due
+    }
+    return render(request, 'base/tasks-due-tomorrow.html', context)

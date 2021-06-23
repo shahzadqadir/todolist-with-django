@@ -1,0 +1,22 @@
+{% extends 'base/main.html' %}
+
+{% block title %}todolist - Tasks Due Tomorrow {% endblock %}
+
+{% block content %}
+
+<a class="header-bar" href="{% url 'tasks' %}">Back</a>
+<h3> Tasks due tomorrow</h3>
+
+<div class="tasks-due-tomorrow">
+{% if tasks_due %}
+    <ul>
+    {% for task in tasks_due %}
+        <li><a href="{% url 'task' task.id %}">{{task}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks setup for tomorrow yet</p>
+{% endif %}
+</div>
+
+{% endblock %}

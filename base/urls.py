@@ -11,6 +11,8 @@ urlpatterns = [
     path('reports/', views.view_reports, name='reports'),
     path('search-dates/', views.SearchClosedTasks, name='search-dates'),
     path('tasks-completed/', views.tasks_completed, name='tasks-completed'),
+    path('tasks-due-tomorrow/', views.tasks_due_tomorrow,
+         name='tasks-due-tomorrow'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('task/<int:pk>/', views.TaskDetail.as_view(), name='task'),
     path('task-create/', views.TaskCreate.as_view(), name='task-create'),

@@ -8,8 +8,11 @@
 
 <h2>Reports</h2>
 
-<div class="task-title">
-<div class="task-complete-icon"></div>
-<a href="{% url 'tasks-completed' %}">Tasks Archived</a>
+<div class="reports">
+<ul>
+<li><a href="{% url 'tasks-completed' %}">Tasks Completed</a></li>
+<li><a href="{% url 'search-dates' %}">Search Between Dates</a></li>
+</ul>
 </div>
+
 {% endblock %}

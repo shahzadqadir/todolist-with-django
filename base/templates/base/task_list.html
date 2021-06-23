@@ -24,7 +24,7 @@
         <tr>
             <td><a id="add-link" href="{% url 'task-create' %}">&#x2b;</a></td>
             <td><a href="{% url 'reports' %}">Reports</a></td>
-            <td><a href="{% url 'search-dates' %}">Search Dates</a></td>
+            <td><a href="{% url 'tasks-due-tomorrow' %}">What's due tomorrow?</a>
         </tr>
     </table>           
 </div>
@@ -56,14 +56,5 @@
         {% endif %}   
     {% endfor %}
 </div>
-
-<hr>
- <table class="main-bar-table">
-        <tr>
-            <td><a id="add-link" href="{% url 'task-create' %}">&#x2b;</a></td>
-            <td><a href="{% url 'reports' %}">Reports</a></td>
-            <td><a href="{% url 'search-dates' %}">Search Dates</a></td>
-        </tr>
-    </table>           
 
 {% endblock content %}
