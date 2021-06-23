@@ -85,7 +85,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
-    fields = ['task', 'description', 'due_date', 'complete']
+    fields = ['task', 'description', 'task_priority', 'due_date', 'complete']
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
@@ -95,7 +95,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ['task', 'description', 'due_date',
+    fields = ['task', 'description', 'task_priority', 'due_date',
               'complete', 'date_completed', 'archive']
 
     def get_context_data(self, **kwargs):

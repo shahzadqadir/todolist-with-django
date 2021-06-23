@@ -41,14 +41,20 @@
                 </div>       
                 <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
                 {% else %}
-                <div class="task-title">
+                    <div class="task-title">
                     <div class="task-incomplete-icon"></div>
-                    <a href="{% url 'task-edit' task.id %}">{{task}}</a>
+                   {% if task.task_priority == "HIGH" %}    
+                        <a style="color:red" href="{% url 'task-edit' task.id %}">{{task}}</a>    
+                    {% elif task.task_priority == 'LOW' %}
+                         <a style="color:green" href="{% url 'task-edit' task.id %}">{{task}}</a>
+                    {% else %}
+                        <a href="{% url 'task-edit' task.id %}">{{task}}</a>
+                    {% endif %}
                     {% if task.due_date %}
                         <div class="due-date">
                         {{task.due_date}}
                         </div>
-                    {% endif %}
+                    {% endif %}                        
                 </div>
                 <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
                 {% endif %}  
@@ -56,5 +62,16 @@
         {% endif %}   
     {% endfor %}
 </div>
+
+<!Copy header table to the bottom!>
+
+<hr>
+<table class="main-bar-table">
+    <tr>
+        <td><a id="add-link" href="{% url 'task-create' %}">&#x2b;</a></td>
+        <td><a href="{% url 'reports' %}">Reports</a></td>
+        <td><a href="{% url 'tasks-due-tomorrow' %}">What's due tomorrow?</a>
+    </tr>
+</table>           
 
 {% endblock content %}
