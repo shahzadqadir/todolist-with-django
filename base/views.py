@@ -1,7 +1,8 @@
 import datetime
 from django.db.models import fields
 from django.forms.forms import Form
-from django.shortcuts import render
+from django.http import request
+from django.shortcuts import redirect, render
 from django.db import models
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -11,9 +12,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
+from .forms import DatesInputForm
+
+import datetime
+
 from django.urls import reverse_lazy
 
 from .models import Task
+
+
+def tasks_completed(request):
+    tasks = Task.objects.all()
+    completed_tasks = [task for task in tasks if task.complete]
+
+    context = {
+        'completed_tasks': completed_tasks
+    }
+    print(context['completed_tasks'])
+    return render(request, 'base/tasks_completed.html', context)
+
+
+def view_reports(request):
+    return render(request, 'base/reports.html')
 
 
 class CustomLoginView(LoginView):
@@ -75,7 +95,16 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ['task', 'description', 'due_date', 'complete']
+    fields = ['task', 'description', 'due_date',
+              'complete', 'date_completed', 'archive']
+
+    def get_context_data(self, **kwargs):
+        context = super(TaskUpdate, self).get_context_data(**kwargs)
+        context['complete'] = self.get_object().complete
+        context['date_completed'] = self.get_object().date_completed
+        if context['complete']:
+            context['date_completed'] = datetime.date.today
+        return context
 
     success_url = reverse_lazy('tasks')
 
@@ -84,3 +113,24 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
+
+
+def SearchClosedTasks(request):
+    if request.method == 'POST':
+        form = DatesInputForm(request.POST)
+        if form.is_valid():
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            tasks = Task.objects.all()
+
+            completed_tasks = [task for task in tasks if task.complete and (
+                task.date_completed >= start_date and task.date_completed <= end_date)]
+
+            return render(request, 'base/completed_tasks-with_dates.html',
+                          {'completed_tasks': completed_tasks})
+    else:
+        form = DatesInputForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'base/closed_within_dates.html', context)

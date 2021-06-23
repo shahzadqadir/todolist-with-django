@@ -1,0 +1,17 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<a class="header-bar" href="{% url 'tasks' %}">Home</a>
+
+{% if completed_tasks %}
+    <ul>
+    {% for task in completed_tasks %}
+        <li>{{task.task}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks completed between these dates</p>
+{% endif %}
+
+{% endblock %}

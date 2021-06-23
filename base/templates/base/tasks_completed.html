@@ -1,0 +1,25 @@
+{% extends 'base/main.html' %}
+
+{% block title %}Todo List - Tasks Completed{% endblock title %}
+
+{% block content %}
+
+<a class="header-bar" href="{% url 'tasks' %}">Back</a>
+
+<h1> Completed Tasks </h1>
+
+<div class="tasks_completed">
+
+{% if completed_tasks %}
+    <ol>
+    {% for task in completed_tasks %}
+        <li><a href="{% url 'task' task.id %}">{{task}}</a>  {{task.date_completed}}</li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No tasks completed yet</p>
+{% endif %}
+
+</div>
+
+{% endblock  %}

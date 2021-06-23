@@ -1,0 +1,15 @@
+{% extends 'base/main.html' %}
+
+{% block title%}Todo List - Reports {% endblock %}
+
+{% block content %}
+
+<a class="header-bar" href="{% url 'tasks'%}">Back</a>
+
+<h2>Reports</h2>
+
+<div class="task-title">
+<div class="task-complete-icon"></div>
+<a href="{% url 'tasks-completed' %}">Tasks Archived</a>
+</div>
+{% endblock %}

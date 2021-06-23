@@ -1,0 +1,18 @@
+{% extends 'base/main.html' %}
+
+{% block title %}Search closed tasks{% endblock  %}
+
+{% block content %}
+
+<a class="header-bar" href="{% url 'tasks' %}">Back</a>
+
+<h4>Search closed tasks</h4>
+
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <br><br>
+    <input class="button" type="submit" value="Search">
+</form>
+
+{% endblock %}

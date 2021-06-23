@@ -14,6 +14,7 @@ class Task(models.Model):
     due_date = models.DateField(default=datetime.date.today, null=True)
     complete = models.BooleanField()
     date_completed = models.DateField(null=True, blank=True)
+    archive = models.BooleanField(default=False)
 
     def __str__(self):
         if len(self.task) > 30:
